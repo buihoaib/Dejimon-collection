@@ -1,0 +1,195 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dejimons</title>
+
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+      integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  </head>
+  <body style="overflow-y: scroll">
+    <header>
+      <div class="bg-dark collapse" id="navbarHeader">
+        <div class="container">
+          <div class="row p-5">
+            <h4 class="text-white">About</h4>
+            <p class="text-muted">
+              In remote areas of Korea, there live mythical pig-like creatures
+              called Dejimons. Dejimons come in all shapes and sizes and have
+              special magical abilities. This site will help you keep track of
+              your Dejimon collection.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="navbar navbar-dark bg-dark box-shadow">
+        <div class="container d-flex justify-content-between">
+          <a href="#" class="navbar-brand d-flex align-items-center">
+            <i
+              ><img
+                src="img/pig.png"
+                alt="pig"
+                style="max-width: 30pt; max-height: 30pt; margin: 0 10pt"
+            /></i>
+            <strong>Dejimon Collection</strong>
+          </a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-toggle="collapse"
+            data-target="#navbarHeader"
+            aria-controls="navbarHeader"
+            aria-expanded="true"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="p-5">
+        <table id="all-table" class="table table-bordered">
+          <thead class="thead-dark">
+            <th>Name</th>
+            <th>Type</th>
+            <th></th>
+            <th></th>
+          </thead>
+          <tbody id="table-body"></tbody>
+        </table>
+
+        <button
+          id="open-add-option"
+          type="button"
+          class="btn btn-primary"
+          data-toggle="collapse"
+          data-target="#add-table"
+        >
+          <i class="fas fa-plus"></i>
+        </button>
+
+        <section
+          id="add-table"
+          class="collapse d-grid m-3 p-2 border border-primary rounded justify-content-md-center"
+        >
+          <table class="table table-bordered">
+            <caption style="caption-side: top">
+              Add New
+            </caption>
+            <tr>
+              <td>Name</td>
+              <td>
+                <input
+                  type="string"
+                  name="name"
+                  id="inputName"
+                  value="Random"
+                />
+              </td>
+            </tr>
+            <tr>
+              <td>Height</td>
+              <td>
+                <input type="number" name="height" id="inputHeight" value="5" />
+              </td>
+            </tr>
+            <tr>
+              <td>Weight</td>
+              <td>
+                <input type="number" name="weight" id="inputWeight" value="5" />
+              </td>
+            </tr>
+            <tr class="px-10">
+              <td><label for="type">Type:</label></td>
+              <td>
+                <select name="type" id="inputType" onchange="onSelectChange()">
+                  <option value="default">Choose one</option>
+                  <option value="Yorkshire">Yorkshire</option>
+                  <option value="Lean">Lean</option>
+                  <option value="Potbelly">Potbelly</option>
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td>Abilities</td>
+              <td id="abilities-container"></td>
+            </tr>
+          </table>
+          <button id="confirm-add" type="button" class="btn btn-primary">
+            Add
+          </button>
+          <button id="cancel-add" type="button" class="btn btn-secondary">
+            Cancel
+          </button>
+        </section>
+      </section>
+
+      <!-- Modal -->
+      <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Dejimon Info:</h4>
+            </div>
+            <div class="modal-body">
+              <table class="table table-bordered">
+                <tr>
+                  <td>Name</td>
+                  <td id="name-modal">placeholder</td>
+                </tr>
+                <tr>
+                  <td>Type</td>
+                  <td id="type-modal">placeholder</td>
+                </tr>
+                <tr>
+                  <td>Height</td>
+                  <td id="height-modal">placeholder</td>
+                </tr>
+                <tr>
+                  <td>Weight</td>
+                  <td id="weight-modal">placeholder</td>
+                </tr>
+                <tr>
+                  <td>Abilities</td>
+                  <td id="abilities-modal">placeholder</td>
+                </tr>
+                <tr>
+                  <td>Overall</td>
+                  <td id="overall-modal">placeholders</td>
+                </tr>
+              </table>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-default"
+                data-dismiss="modal"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <script src="./models/DejimonModel.js"></script>
+    <script src="./services/DejimonService.js"></script>
+    <script src="./main.js"></script>
+  </body>
+</html>
